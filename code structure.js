@@ -6,17 +6,29 @@ __init__.py {
 
 models.py 930{
 	_sparse_linear()
-	_sparse_sd()
+	_sparse_sd(){
+		sklearn.linear_model.LinearRegression()
+	}
 	class Sparse{
 		__init__()
-		run()
+		run(){
+			_sparse_linear()
+			skimage.transform.AffineTransform()
+		}
 	}
 	class SparseSD{
 		__init__()
-		run()		
+		run(){
+			_sparse_sd()
+			skimage.transform.AffineTransform()
+		}		
 	}
 	_fill_holes()
-	_calculate_of()
+	_calculate_of(){
+		cv2.optflow.createOptFlow_Farneback()
+		cv2.optflow.createOptFlow_DIS()
+		cv2.optflow.createOptFlow_DeepFlow()
+	}
 	_advection_constant_vector()
 	_advection_semi_lagrangian()
 	_interpolator()
