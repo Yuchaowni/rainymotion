@@ -130,8 +130,7 @@ def _sparse_sd(data_instance,
     last_frame = data_instance[-1]
 
     # find features to track
-    old_corners = cv2.goodFeaturesToTrack(data_instance[0], mask=None,
-                                          **of_params['st_pars'])
+    old_corners = cv2.goodFeaturesToTrack(data_instance[-1], mask=None,**of_params['st_pars'])
 
     # track corners by optical flow algorithm
     new_corners, st, err = cv2.calcOpticalFlowPyrLK(prevImg=penult_frame,
@@ -155,7 +154,7 @@ def _sparse_sd(data_instance,
     pts_target_container = []
 
     for lead_step in range(lead_steps):
-        pts_target_container.append(pts_source + delta * (lead_step + 1))
+        pts_target_container.append(pts_source + delta * (lead_step ))
 
     return pts_source, pts_target_container
 
@@ -551,8 +550,8 @@ def _advection_constant_vector(of_instance, lead_steps=12):
     # calculate new coordinates of radar pixels
     coord_targets = []
     for lead_step in range(lead_steps):
-        coord_target_i = coord_source_i + delta_x * (lead_step + 1)
-        coord_target_j = coord_source_j + delta_y * (lead_step + 1)
+        coord_target_i = coord_source_i + delta_x * (lead_step )
+        coord_target_j = coord_source_j + delta_y * (lead_step )
         coord_targets.append([coord_target_i, coord_target_j])
 
     coord_source = [coord_source_i, coord_source_j]
