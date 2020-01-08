@@ -130,7 +130,7 @@ def _sparse_sd(data_instance,
     last_frame = data_instance[-1]
 
     # find features to track
-    old_corners = cv2.goodFeaturesToTrack(data_instance[-1], mask=None,**of_params['st_pars'])
+    old_corners = cv2.goodFeaturesToTrack(data_instance[-2], mask=None,**of_params['st_pars'])
 
     # track corners by optical flow algorithm
     new_corners, st, err = cv2.calcOpticalFlowPyrLK(prevImg=penult_frame,

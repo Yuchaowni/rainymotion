@@ -83,18 +83,19 @@ def RYScaler(X_mm):
         '''
         return 10. * np.log10(z)
 
-    # mm to mm/h
-    X_mmh = depth2intensity(X_mm)
-    # mm/h to reflectivity
-    X_rfl = mmh2rfl(X_mmh)
+    
+    #X_mmh = depth2intensity(X_mm)  # mm to mm/h
+   
+    # X_rfl = mmh2rfl(X_mmh)   # mm/h to reflectivity
     # remove zero reflectivity
     # then log10(0.1) = -1 not inf (numpy warning arised)
-    X_rfl[X_rfl == 0] = 0.1
+    #X_rfl[X_rfl == 0] = 0.1
     # reflectivity to dBz
-    X_dbz = rfl2dbz(X_rfl)
+    #X_dbz = rfl2dbz(X_rfl)
     # remove all -inf
-    X_dbz[X_dbz < 0] = 0
+    #X_dbz[X_dbz < 0] = 0
 
+    X_dbz = X_mm
     # MinMaxScaling
     c1 = X_dbz.min()
     c2 = X_dbz.max()
@@ -134,12 +135,12 @@ def inv_RYScaler(X_scl, c1, c2):
         return (z / a) ** (1. / b)
 
     # decibels to reflectivity
-    X_rfl = dbz2rfl((X_scl / 255)*(c2 - c1) + c1)
+    #X_rfl = dbz2rfl((X_scl / 255)*(c2 - c1) + c1)
     # 0 dBz are 0 reflectivity, not 1
-    X_rfl[X_rfl == 1] = 0
+    #X_rfl[X_rfl == 1] = 0
     # reflectivity to rainfall in mm/h
-    X_mmh = rfl2mmh(X_rfl)
+    #X_mmh = rfl2mmh(X_rfl)
     # intensity in mm/h to depth in mm
-    X_mm = intensity2depth(X_mmh)
-
+    #X_mm = intensity2depth(X_mmh)
+    X_mm = (X_scl / 255)*(c2 - c1) + c1
     return X_mm
