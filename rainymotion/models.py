@@ -925,3 +925,28 @@ class Persistence:
         forecast = np.dstack([last_frame for i in range(self.lead_steps)])
 
         return np.moveaxis(forecast, -1, 0).copy()
+class Dense60:
+    def __init__(self):
+        self.input_data = None
+        self.scaler = RYScaler
+        self.lead_steps = 12
+        self.of_method = "DIS"
+        self.direction = "backward"
+        self.interpolation = "idw"
+    def run(self):
+        scaled_data, c1, c2 = self.scaler(self.input_data)
+        of = _calculate_of(scaled_data, method=self.of_method, direction=self.direction)
+        # from _advection_constant_vector
+        delta_x = of[::, ::, 0]
+        delta_y = of[::, ::, 1]
+        # make a source meshgrid
+        coord_source_i, coord_source_j = np.meshgrid(range(of.shape[1]),range(of.shape[0]))
+        coord_source = [coord_source_i, coord_source_j]
+        # calculate new coordinates of radar pixels
+        coord_target_i = coord_source_i + delta_x * (self.lead_step )
+        coord_target_j = coord_source_j + delta_y * (self.lead_step )
+        coord_targets =[coord_target_i, coord_target_j]
+        # nowcasts placeholder
+        nowcasts = _interpolator(self.input_data[-1], coord_source,coord_targets,
+                                 method=self.interpolation)
+        return nowcasts
