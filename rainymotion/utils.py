@@ -95,7 +95,8 @@ def RYScaler(X_mm):
     # remove all -inf
     #X_dbz[X_dbz < 0] = 0
 
-    X_dbz = X_mm
+    #X_dbz = X_mm
+    X_dbz = np.log10(X_mm + 0.01)
     # MinMaxScaling
     c1 = X_dbz.min()
     c2 = X_dbz.max()
