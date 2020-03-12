@@ -15,6 +15,8 @@ from mpl_toolkits.basemap import Basemap
 import joblib 
 import pysteps_plus
 from pysteps.motion.lucaskanade import dense_lucaskanade
+from pysteps.postprocessing import ensemblestats
+from pysteps.utils import conversion, dimension, transformation
 
 t0 = time()
 #print(os.getcwd())
@@ -37,7 +39,7 @@ print(datetime_object)
 
 threshold = 0.1
 zerovalue = -15.0
-n_ens_members = 10
+n_ens_members = 5
 time_seperation_in_minute = 5 
 seed = 24
 p_threshold = 0.5 # probability threshold
@@ -48,8 +50,10 @@ for i, bin_file in enumerate(now_files):
 mask = inputs[0] < 0
 # inputs[inputs < 0] = 0
 zeros = inputs < threshold
-inputs[~zeros] = 10.0 * np.log10(inputs [~zeros] )
+inputs[~zeros] = 10.0 * np.log10(inputs[~zeros])
 inputs[zeros] = zerovalue
+#inputs = np.ma.array(inputs, mask=np.concatenate((mask,mask,mask)))
+
 V = dense_lucaskanade(inputs)
 R_f = pysteps_plus.forecast12(inputs, V, n_timesteps = 12, n_ens_members=n_ens_members, n_cascade_levels=6, 
     R_thr=-10.0, kmperpixel=2.0, timestep = time_seperation_in_minute, decomp_method="fft",
