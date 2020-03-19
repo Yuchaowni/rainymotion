@@ -1,7 +1,6 @@
 # written by Yuchao Jiang on 2020.3.3
 # use rainymotion library, only make one prediction for the next one hour
 
-
 import os
 import numpy as np
 import glob
@@ -22,6 +21,10 @@ if not os.path.exists(data_folder):
 	data_folder = "../../../usr/amoeba/pub/rain_kakuho/hres.jma_nowcast/out"
 bin_files = glob.glob(os.path.join(data_folder,"*ints.1km.bin"))  # 288 = 12*24
 bin_files.sort()
+if len(bin_files) < 14:
+	print("No enough data, please check folder:")
+	print(data_foler)
+	sys.exit(0)
 now_files = bin_files[-14:-12]
 truth_file = bin_files[-1]
 print("--------------- using these files ---------------")

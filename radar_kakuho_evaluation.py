@@ -80,7 +80,7 @@ except:
     print(f"not exist:{source_path}")
 
 # 2.3 convert wgrib2 to nc file and extract
-var = "60 min fcst"
+var = ":60 min fcst"
 nc_file = "temp2.nc"
 cmd = f"wgrib2 {goal_path} -s | egrep '({var})'|wgrib2 -i {goal_path} -netcdf {nc_file}"
 fail = os.system(cmd)
