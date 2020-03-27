@@ -13,8 +13,9 @@ def job():
 	dt = datetime.datetime.utcnow()
 	print("UTC now:",dt)
 	#cmd = "python forecast_one_hour.py"
-	cmd = "python forecast_every_5min.py"
-	os.system(cmd)  # 0 indicate success, others indicate fail
+	os.system("python forecast_realtime_basemap.py")
+	os.system("python forecast_every_5min.py")  
+	os.system("python forecast_beyond_1hour.py")  
 	print("wait for next update in 10 minutes  --------------------------------------------")
 	return 
 

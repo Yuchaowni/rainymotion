@@ -42,7 +42,7 @@ print(datetime_object)
 #print(*now_files, sep = "\n")
 #print(*truth_files, sep = "\n")
 
-threshold = 0.1
+threshold = 0.29
 inputs = np.zeros(shape = (2,3360,2560), dtype = np.float32)
 for i, bin_file in enumerate(now_files):
     inputs[i] = np.fromfile(bin_file, dtype = "float32").reshape((3360,2560))
@@ -122,41 +122,7 @@ plt.grid()
 plt.ylabel("Threat score")
 plt.xlabel("Minutes after now")
 plt.title(f"Now = {datetime_object.strftime('%Y-%m-%d %H:%M')} UTC, rain coverage = {coverage*100:.1f} %, threshold = {threshold} mm/h")
-plt.savefig("./5min_threat_compare.png",format = "png",bbox_inches='tight')
-
-
-# 4.2 store to file and plot comparison curve
-threat_file = "./all_threat.csv"
-datetime_current = now_files[-1].split("/")[-1].split(".")[0]  # store as string
-data = pd.DataFrame({"datetime":datetime_current,
-                    "rain_coverage":round(coverage,3),
-                   "rainy_threat": round(rainy_threat_13[-1],3),
-                  "kakuho_threat": round(kakuho_threat_13[-1],3)},
-                  index = [0])
-if os.path.exists(threat_file):
-    old_data = pd.read_csv(threat_file)
-    data = old_data.append(data, ignore_index = False)
-    # plot comparison
-    plt.figure(dpi=100)
-    dates = data.datetime.apply(lambda x:datetime.strptime(str(x),"%Y%m%d%H%M"))
-    
-    plt.plot(dates, data.rainy_threat, 'o-', label = "score of rainymotion")
-    plt.plot(dates, data.kakuho_threat, 's-',alpha = 0.3,label = "score of rain kakuho")
-    plt.plot(dates, data.rain_coverage + 0.2, '.--',label = "rain coverage + 0.2")
-    plt.title("Japan area (2.57 M pixels),Threshold = 0.1 mm/h",fontsize= 15)
-    plt.legend()
-    plt.xlabel("datetime",fontsize= 20)
-    plt.ylabel("threat score",fontsize= 20)
-    plt.ylim([0.2,0.8])
-    plt.grid()
-
-    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%m-%d %H:')) # 格式化时间轴标注
-    plt.gcf().autofmt_xdate() # 优化标注（自动倾斜）
-
-    #plt.show()
-    plt.savefig("./1hour_threat_compare.png",format = "png",bbox_inches='tight')
-data.to_csv(threat_file, index = False)
-#print(f"threat scores have been added to {threat_file}")
+plt.savefig("./03mm_threat_compare.png",format = "png",bbox_inches='tight')
 
 
 

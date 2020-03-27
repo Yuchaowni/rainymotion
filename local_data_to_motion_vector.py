@@ -3,6 +3,7 @@
 # python 3.7.6
 # generate u,v binary files: python **.py
 # generate u,v binary files + png: python **.py --output_figure
+# use the lastest radar data for prediction
 
 import os
 import cv2
@@ -14,7 +15,6 @@ from time import time
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
 import argparse
-
 
 def main(output_figure = False):
     t0 = time()
@@ -51,7 +51,6 @@ def main(output_figure = False):
     # save data to binary 
     u.data.tofile(f"{output_folder}/{datetime_str}_u.bin")
     v.data.tofile(f"{output_folder}/{datetime_str}_v.bin")
-
 
     if output_figure == True:
         # plot motion vector on base map
