@@ -1,0 +1,17 @@
+using time: 2020-02-27 05:45, available files: 25
+using these 2 files for optical flow:
+/Users/jiang/data/kakuho_dev/202002270540.prec.ints.1km.bin
+/Users/jiang/data/kakuho_dev/202002270545.prec.ints.1km.bin
+using time: 2020-02-27 05:45, available files: 25
+using these 2 files for optical flow:
+/Users/jiang/data/kakuho_dev/202002270540.prec.ints.1km.bin
+/Users/jiang/data/kakuho_dev/202002270545.prec.ints.1km.bin
+using time: 2020-02-27 05:45, available files: 25
+using these 2 files for optical flow:
+/Users/jiang/data/kakuho_dev/202002270540.prec.ints.1km.bin
+/Users/jiang/data/kakuho_dev/202002270545.prec.ints.1km.bin
+using time: 2020-02-27 05:45, available files: 25
+using these 2 files for optical flow:
+/Users/jiang/data/kakuho_dev/202002270540.prec.ints.1km.bin
+/Users/jiang/data/kakuho_dev/202002270545.prec.ints.1km.bin
+-- output 13 of pngs in 10 minutes interval
