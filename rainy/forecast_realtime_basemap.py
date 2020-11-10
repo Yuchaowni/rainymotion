@@ -54,7 +54,8 @@ def main():
     for i in range(0,25,step):
         pred_pngs.append(plot_radar(lons, lats, prediction[i], mask,dt,i,output_folder))
     print_log(f'-- output {len(pred_pngs)} of pngs in {step*5} minutes interval',log_folder)
-    output_gif = dt.strftime(f'realtime_prediction_%Y_%m_%d.%H:.%M.gif')
+    #output_gif = dt.strftime(f'realtime_prediction_%Y_%m_%d.%H:.%M.gif')
+    output_gif = 'realtime_prediction_basemap.gif' # don't change file name so it can be recognized by html
     make_gif(pred_pngs, output_folder, output_gif, keep_png = False)
     print_log(f'-- output_gif: {output_folder}/{output_gif}', log_folder)
     print_log(f"time cost: {time()-t0}", log_folder)  # 195 s = 3 min for 13 images
