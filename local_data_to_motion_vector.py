@@ -5,6 +5,7 @@
 # generate u,v binary files + png: python **.py --output_figure
 # use the lastest radar data for prediction
 
+import argparse
 import os
 import cv2
 import numpy as np
@@ -14,7 +15,7 @@ from datetime import datetime,timedelta
 from time import time
 import matplotlib.pyplot as plt
 from mpl_toolkits.basemap import Basemap
-import argparse
+
 
 def main(output_figure = False):
     t0 = time()
